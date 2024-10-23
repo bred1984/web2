@@ -138,7 +138,6 @@ def ShowUser(request:HttpRequest):
         form = ShowUserForm()
         return render(request,'showuser.html', {'user':list(res),'form':form})
 
-#TODO
 def Ajax(request):
     print('swvsdv')
     response ={
