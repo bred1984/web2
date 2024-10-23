@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+{% block content %}
+   <div>
+     <form method="POST">
+       {% csrf_token %}
+    <table>
+        {{ form }}
+    </table>
+    <input type="submit" value="Send" >
+     </form>
+   </div>
+   <div class="">
+     {%for u in user%}
+        <div>
+          {{u.username}}
+        </div>
+     {%endfor%}
+
+   </div>
+
+{% endblock %}

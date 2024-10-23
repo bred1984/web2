@@ -1,0 +1,48 @@
+body, h2, p{
+    margin:0;
+    adding:0;
+}
+body{
+    font-size: 18px;
+}
+#header{
+    background-color: #eee;
+    border-bottom: 1px solid #ccc;
+    height: 80px;
+}
+#menu{
+    background-color: #ddd;
+    float: left;
+    width: 150px;
+}
+#menu ul{
+    list-style-type : none;
+
+}
+#menu li{
+    border: 1px solid #000; /* Рамка вокруг текста */
+}
+
+#main{
+    background-color: #f7f7f7;
+    border-left: 1px solid #ccc;
+    margin-left: 150px;
+    padding: 10px;
+}
+#footer{
+    border-top: 1px solid #ccc;
+    background-color: #dedede;
+}
+ul.hr {
+    margin: 0; /* Обнуляем значение отступов */
+    padding: 4px; /* Значение полей */
+    /*margin-left: 500px;
+    /*margin-right:0;*/
+    float: right;
+}
+ul.hr li {
+    display: inline; /* Отображать как строчный элемент */
+    margin-right: 5px; /* Отступ слева */
+    border: 1px solid #000; /* Рамка вокруг текста */
+    padding: 3px; /* Поля вокруг текста */
+}

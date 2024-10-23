@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+{% block content %}
+   <div class="">
+
+     {%for p in data%}
+        <div>
+            {% with message="static\\"%}
+            <img src="{{'static\\'|add:p.href}}" width="320">
+            {%endwith%}
+        </div>
+     {%endfor%}
+
+   </div>
+
+{% endblock %}

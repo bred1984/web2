@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<script>
+    const xhr = new XMLHttpRequest();
+    // GET-запрос к ресурсу /hello
+    xhr.open("GET", "ajax");
+    xhr.send();
+    function foo(){
+        console.log('wvdasv')
+    }
+    xhr.onload=function(response){
+        console.log('12dec')
+        const json = xhr.response['data'];
+        console.log(json)
+    }
+    foo();
+
+
+
+</script>
+
+{%endblock%}
