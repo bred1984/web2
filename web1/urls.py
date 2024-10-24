@@ -33,6 +33,7 @@ urlpatterns = [
     path('addphoto',views.AddPhoto,name='addphoto'),
     path('chat',views.Chat,name='chat'),
     path('ajax', views.Ajax, name='ajax'),
+    path('getajax', views.GetAjax, name = 'getajax'),
     path('login', web_auth.login_user, name='login'),
     path('logout', web_auth.logout_user, name='logout'),
     path('register', web_auth.register, name='register'),

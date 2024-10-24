@@ -1,3 +1,4 @@
+import json
 from http.client import responses
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
@@ -138,15 +139,38 @@ def ShowUser(request:HttpRequest):
         form = ShowUserForm()
         return render(request,'showuser.html', {'user':list(res),'form':form})
 
-def Ajax(request):
-    print('swvsdv')
+
+def Ajax(request:HttpRequest):
+    #SqlDriver.sql = f"insert into chat (user1id, user2id, message) values ({}"
+    # res = SqlDriver.connect(SqlDriver.ShowUser)
+    info = json.loads(str(request.body, 'UTF-8'))
+    print(info)
+    print(info['name'])
     response ={
         'data':'1234'
     }
+    return JsonResponse(info)
+def GetAjax(request:HttpRequest):
+    print(request.body)
+    response = {'date':'123456'}
     return JsonResponse(response)
-
 def Chat(request):
-    return render(request, 'chat.html')
+    if request.method == 'POST':
+        form=ShowUserForm()
+        name=request.POST.get('name')
+        print(name)
+        SqlDriver.sql = f"select username from auth_user where username = '{name}'"
+        res=SqlDriver.connect(SqlDriver.ShowUser)
+        return render(request,'chat.html', {'user':list(res),'form':form, 'user':name})
+    else:
+        SqlDriver.sql = f"select id, username from auth_user where username != '{request.user}'"
+        res = SqlDriver.connect(SqlDriver.ShowUser)
+        form = ShowUserForm()
+        return render(request,'userforchat.html', {'user':list(res),'form':form})
+    # return render(request, 'userforchat.html')
+    # return render(request, 'chat.html')
+    # return render(request, 'chat2.html',{'form':form})
+
 
 
 

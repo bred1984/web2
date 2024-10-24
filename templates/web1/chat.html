@@ -1,19 +1,66 @@
 {% extends "base_generic.html" %}
 {% block content %}
+{% load static %}
+
+{% csrf_token %}
+<div>
+    {{user}}
+</div>
+<div>
+
+      <textarea name="comment" id="comment"  maxlength="500"></textarea>
+</div>
+<div>
+<textarea name="comment1" id="mes"  maxlength="200"></textarea>
+</div>
+<input id="send" type="submit" name="send" value="Отправить" />
+
 <script>
     const xhr = new XMLHttpRequest();
     // GET-запрос к ресурсу /hello
-    xhr.open("GET", "ajax");
-    xhr.send();
-    function foo(){
-        console.log('wvdasv')
-    }
+    xhr.open("POST", "ajax");
+    const xhr1 = new XMLHttpRequest();
+    var csrftoken = '{{ csrf_token }}';
     xhr.onload=function(response){
-        console.log('12dec')
-        const json = xhr.response['data'];
-        console.log(json)
+        //console.log('12dec')
+        //const json = xhr.response['mes'];
+        const res = JSON.parse(xhr.responseText)
+        $("#comment").val(res['mes'])
+        console.log(res['mes'])
     }
-    foo();
+    function SendButton(){
+        //console.log('wdc')
+        //data={'name':'qww'}
+        const tom = {
+            name: "Tom",
+            age: 37,
+            mes: $("#mes").val()
+        };
+        const data = JSON.stringify(tom);
+        xhr.open("POST", "ajax");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(data);
+    }
+    const sendButton = document.getElementById("send");
+    sendButton.addEventListener("click", SendButton);
+    xhr1.onload = function (){
+        const res = JSON.parse(xhr1.responseText)
+        $("#comment").val(res['date'])
+        console.log(xhr1.responseText)
+    }
+    function sendInterval(){
+        const tom = {
+            name: "Tom",
+            mes: '123'
+        };
+        const data = JSON.stringify(tom);
+        xhr1.open("POST", "getajax");
+        xhr1.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr1.setRequestHeader("Content-Type", "application/json");
+        xhr1.send(data);
+    }
+    setInterval(sendInterval,1000);
 
 
 
