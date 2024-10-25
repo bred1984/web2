@@ -37,4 +37,6 @@ urlpatterns = [
     path('login', web_auth.login_user, name='login'),
     path('logout', web_auth.logout_user, name='logout'),
     path('register', web_auth.register, name='register'),
+
+    path('test', views.Test, name = 'test')
 ]

@@ -145,23 +145,37 @@ def Ajax(request:HttpRequest):
     # res = SqlDriver.connect(SqlDriver.ShowUser)
     info = json.loads(str(request.body, 'UTF-8'))
     print(info)
-    print(info['name'])
+    print(info.get('id'))
+    print(request.user)
+    user_sql=f"select id from auth_user where username = '{request.user}'"
+    print(user_sql)
+    SqlDriver.sql=f"insert into chat(user1id, user2id, message) values (({user_sql}), {info.get('id')}, '{info.get('mes')}')"
+    SqlDriver.connect(SqlDriver.Insert_db)
     response ={
         'data':'1234'
     }
     return JsonResponse(info)
 def GetAjax(request:HttpRequest):
-    print(request.body)
-    response = {'date':'123456'}
+    info = json.loads(str(request.body, 'UTF-8'))
+    print(info.get('id'))
+    user_sql = f"select id from auth_user where username = '{request.user}'"
+    SqlDriver.sql = f"select message from chat where user1id = ({user_sql})"
+    res = SqlDriver.connect(SqlDriver.ShowUser)
+    SqlDriver.sql = f"select message from chat where user1id = ({user_sql})"
+    res1 = SqlDriver.connect(SqlDriver.ShowUser)
+
+    print(list(res)[1]['message'])
+    response = {'date':list(res)}
     return JsonResponse(response)
-def Chat(request):
+def Chat(request:HttpRequest):
     if request.method == 'POST':
         form=ShowUserForm()
         name=request.POST.get('name')
-        print(name)
-        SqlDriver.sql = f"select username from auth_user where username = '{name}'"
+        id = request.POST.get('id')
+        print(id,name)
+        SqlDriver.sql = f"select username from auth_user where id = '{id}'"
         res=SqlDriver.connect(SqlDriver.ShowUser)
-        return render(request,'chat.html', {'user':list(res),'form':form, 'user':name})
+        return render(request,'chat.html', {'user':list(res),'form':form, 'user':name,'id':id})
     else:
         SqlDriver.sql = f"select id, username from auth_user where username != '{request.user}'"
         res = SqlDriver.connect(SqlDriver.ShowUser)
@@ -173,7 +187,8 @@ def Chat(request):
 
 
 
-
+def Test(request):
+    return render(request, 'test.html')
 
 
 

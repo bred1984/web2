@@ -25,18 +25,17 @@
         //console.log('12dec')
         //const json = xhr.response['mes'];
         const res = JSON.parse(xhr.responseText)
-        $("#comment").val(res['mes'])
+        //$("#comment").val(res['mes'])
         console.log(res['mes'])
     }
     function SendButton(){
         //console.log('wdc')
         //data={'name':'qww'}
-        const tom = {
-            name: "Tom",
-            age: 37,
+        const message = {
+            id: {{id}},
             mes: $("#mes").val()
         };
-        const data = JSON.stringify(tom);
+        const data = JSON.stringify(message);
         xhr.open("POST", "ajax");
         xhr.setRequestHeader("X-CSRFToken", csrftoken);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -46,15 +45,24 @@
     sendButton.addEventListener("click", SendButton);
     xhr1.onload = function (){
         const res = JSON.parse(xhr1.responseText)
-        $("#comment").val(res['date'])
-        console.log(xhr1.responseText)
+        //$("#comment").val($("#comment").val()+'\n'+res['date'])
+        ret=''
+        for (let i=0; i<res['date'].length; i++){
+            console.log(res['date'][i]['message'])
+            ret+=res['date'][i]['message']+'\n'
+        }
+        //$("#comment").val($("#comment").val()+res['date'][i]['message'])
+        $("#comment").val(ret)
+        //$("#comment").val(console.log(res['date'][0]['message']))
+
+        //console.log(res['date'][i]['message'])
+
     }
     function sendInterval(){
-        const tom = {
-            name: "Tom",
-            mes: '123'
+        const get_messages = {
+            id: {{id}},
         };
-        const data = JSON.stringify(tom);
+        const data = JSON.stringify(get_messages);
         xhr1.open("POST", "getajax");
         xhr1.setRequestHeader("X-CSRFToken", csrftoken);
         xhr1.setRequestHeader("Content-Type", "application/json");

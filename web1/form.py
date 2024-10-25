@@ -12,6 +12,7 @@ class UserForm(forms.Form):
     pasport = forms.CharField(initial='Введите паспорт')
 
 class ShowUserForm(forms.Form):
+    id = forms.CharField(initial='Введите имя')
     name = forms.CharField(initial='Введите имя')
 
 class AddPhotoForm(forms.Form):

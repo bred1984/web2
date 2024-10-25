@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+{% block content %}
+
+<script>
+
+
+    var q = 123
+    console.log(this.q)
+    console.log(this.document)
+    var qwe=[1,2,3,4]
+    qwe[10]=123
+    console.log(qwe)
+    var asd = {
+        q :'qwe',
+        s : '123',
+        'foo': function(){console.log(123)}
+    }
+    console.log(asd)
+    asd.foo()
+
+
+</script>
+
+{%endblock%}

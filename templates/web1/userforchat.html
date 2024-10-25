@@ -7,12 +7,13 @@
         {{ form }}
     </table>
     <input type="submit" value="Send" id = 'send' >
+
      </form>
    </div>
    <div class="">
      {%for u in user%}
         <div id = '{{u.id}}' onclick="btn_click(this)">
-        {{u.username}}
+            {{u.username}}
         </div>
      {%endfor%}
 
@@ -22,7 +23,9 @@
 <script>
     function btn_click(btn){
        console.log(btn.innerText)
+       console.log(btn.id)
        $("#id_name").val(btn.innerText)
+       $("#id_id").val(btn.id)
        //console.log('111')
     }
     //var user_id =("#comment").val(res['mes'])
