@@ -159,13 +159,15 @@ def GetAjax(request:HttpRequest):
     info = json.loads(str(request.body, 'UTF-8'))
     print(info.get('id'))
     user_sql = f"select id from auth_user where username = '{request.user}'"
-    SqlDriver.sql = f"select message from chat where user1id = ({user_sql})"
+    # user_sql1 = f"select id from auth_user where username = '{request.user}'"
+    SqlDriver.sql = f"select message from chat where (user1id = ({user_sql}) and user2id = '{info.get('id')}') "
     res = SqlDriver.connect(SqlDriver.ShowUser)
-    SqlDriver.sql = f"select message from chat where user1id = ({user_sql})"
-    res1 = SqlDriver.connect(SqlDriver.ShowUser)
+    print(res)
+    # SqlDriver.sql = f"select message from chat where user2id = ({user_sql})"
+    # res1 = SqlDriver.connect(SqlDriver.ShowUser)
 
-    print(list(res)[1]['message'])
-    response = {'date':list(res)}
+    # print(list(res)[1]['message'])
+    response = {'date':list(res)} #,'date1':list(res1)}
     return JsonResponse(response)
 def Chat(request:HttpRequest):
     if request.method == 'POST':
