@@ -5,12 +5,13 @@
         <meta charset="utf-8">
         <title>Django Lesson</title>
         <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/styles_side.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/styles_heder.css' %}" />
         <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
     </head>
     <body>
-
         <div id="header">
-            <h2>Сайт Афигенная соц сеть</h2>
+            <h2 style= "text-align:center; color:#5285ad;">Афигенная соц сеть</h2>
             <ul class="hr">
                 {% if request.user.is_authenticated %}
                 <li><a href="{% url 'logout' %}">Выйти</a></li>
@@ -31,11 +32,11 @@
         </div>
         <div id="main">
             {% if request.user.is_authenticated %}
-  AUTHED
-            {{request.user}}
-{% else %}
-  GUEST
-{% endif %}
+                AUTHED
+                {{request.user}}
+            {% else %}
+                 GUEST
+            {% endif %}
            <h1>{% block header %}{% endblock header %}</h1>
            <div>{% block content%}{% endblock content %}</div>
         </div>

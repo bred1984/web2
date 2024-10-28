@@ -1,8 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 # from form import LoginUserForm, RegisterUserForm
 from web1.form import *
+from django.contrib.sessions.models import Session
+from web1.SqlDriver import *
 
 
 def login_user(request):
@@ -10,6 +12,21 @@ def login_user(request):
         form = LoginUserForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
+            for session in Session.objects.all():
+                raw_session = session.get_decoded()
+                SqlDriver.sql = f"select id from auth_user where username = '{cd['username']}'"
+                res = SqlDriver.connect(SqlDriver.ShowUser)
+                id=res[0]['id']
+                print(str(raw_session.get('_auth_user_id')), str(id))
+                if str(raw_session.get('_auth_user_id'))==str(id) and ( str(raw_session.get('_auth_user_id')) !='1'):
+                    print('adcsdvasfvasfv')
+                    return HttpResponse('Сессия уже существуеет')
+                # print()
+                # uid = session.get_decoded().get('_auth_user_id')
+                # if uid == TARGET_USER:  # this could be a list also if multiple users
+                # print(session)
+                # print(uid)
+                print(raw_session)
             user = authenticate(request, username=cd['username'], password=cd['password'])
             if user and user.is_active:
                 login(request, user)

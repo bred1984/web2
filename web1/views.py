@@ -4,9 +4,10 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
 # from SqlDriver import SqlDriver
 # from form import UserForm, ShowUserForm, AddPhotoForm
-
+import picle
 from web1.SqlDriver import *
 from web1.form import *
+from django.contrib.sessions.models import Session
 
 import os
 
@@ -23,9 +24,31 @@ def handle_uploaded_file(f,fulldir):
             destination.write(chunk)
 
 def index(request:HttpRequest):
+    # SqlDriver.sql = f"select * from django_session where session_key = '{request.COOKIES['sessionid']}'"
+    # res = SqlDriver.connect(SqlDriver.ShowUser)
+    # print(res[0]['session_data'])
+    SqlDriver.sql = f"select id from auth_user where username = '{'bred'}'"
+    res = SqlDriver.connect(SqlDriver.ShowUser)
 
-    print(request.session)
-    print(request.COOKIES)
+    # print(res[0]['id'])
+    # data = picle.loads(base64.decode(res[0]['session_data']))
+    # print(data)
+    # print(request.session['sessionid'])
+    # s=Session.objects.all()
+    # print(s)
+    for session in Session.objects.all():
+        raw_session = session.get_decoded()
+        uid = session.get_decoded().get('_auth_user_id')
+        # if uid == TARGET_USER:  # this could be a list also if multiple users
+        # print(session)
+        # print(uid)
+        # print(raw_session)
+        # print(raw_session.get('_auth_user_id'))
+    request.session['num_visits']=1
+    request.session['user'] = str(request.user)
+    # print(request.COOKIES['sessionid'])
+
+    # print(dict(request.session))
     return render(request, "test1.html")
 
 def foo(request:HttpRequest,name='Будеш хуй',age=20):
@@ -160,7 +183,8 @@ def GetAjax(request:HttpRequest):
     print(info.get('id'))
     user_sql = f"select id from auth_user where username = '{request.user}'"
     # user_sql1 = f"select id from auth_user where username = '{request.user}'"
-    SqlDriver.sql = f"select message from chat where (user1id = ({user_sql}) and user2id = '{info.get('id')}') "
+    # SqlDriver.sql = f"select message from chat where (user1id = ({user_sql}) and user2id = '{info.get('id')}') "
+    SqlDriver.sql = f"select message from chat where (user1id = ({user_sql}) and user2id = '{info.get('id')}') or (user1id = {info.get('id')} and user2id = ({user_sql}))"
     res = SqlDriver.connect(SqlDriver.ShowUser)
     print(res)
     # SqlDriver.sql = f"select message from chat where user2id = ({user_sql})"
