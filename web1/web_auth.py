@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # from form import LoginUserForm, RegisterUserForm
 from web1.form import *
 from django.contrib.sessions.models import Session
@@ -30,7 +30,9 @@ def login_user(request):
             user = authenticate(request, username=cd['username'], password=cd['password'])
             if user and user.is_active:
                 login(request, user)
-                return HttpResponseRedirect('/')
+                # url_redirect = reverse('cats')
+                return redirect('home')
+                # return HttpResponseRedirect('web1/')
 
     else:
         form = LoginUserForm()
@@ -38,7 +40,8 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return HttpResponseRedirect('/')
+    return redirect('home')
+    # return HttpResponseRedirect('web1/')
 
 def register(request):
     if request.method == "POST":

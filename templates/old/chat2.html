@@ -1,0 +1,51 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% load static %}
+<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<div>
+
+      <textarea name="comment" id="comment"  maxlength="500"></textarea>
+</div>
+<div>
+<textarea name="comment1" id="mes"  maxlength="200"></textarea>
+</div>
+
+<input id="send" type="submit" name="send" value="Отправить" />
+
+<script>
+$(document).ready(function() {
+  ddd= $("#mes").text();
+
+  $('#send').click(function(){
+    console.log('sSCACS')
+    fetch("ajax", {
+        method: "POST",
+        headers: { "Accept": "application/json", "Content-Type": "application/json",csrfmiddlewaretoken: '{{ csrf_token }}' },
+        body: JSON.stringify({
+            name: "Tom",
+            age: 37
+        })
+    })
+      .then(response => response.json())
+    .then(user => console.log(user.name, "-", user.age));
+    /*fetch("ajax")
+    .then(response => response.text())
+    .then(responseText => console.log(responseText));*/
+    /*$.ajax({
+      url: 'ajax',
+      type: 'GET',
+      data: {'name':$("#mes").val()},
+      success: function(data){
+          $('#comment').text(data['name']);
+          console.log(data['name'])
+          //$("#comment").text($("#comment").text()+data['name']);
+      },
+      error: function(){
+      alert('Error!');
+    }
+    });*/
+  });
+});
+</script>
+
+{%endblock%}

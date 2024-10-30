@@ -1,0 +1,27 @@
+/** {
+    all: initial;
+}*/
+a {
+    text-decoration:none;
+    text-align: center;
+}
+body, h2, p{
+    margin:0;
+    padding:0;
+}
+body{
+    font-size: 18px;
+}
+
+#footer{
+    border-top: 1px solid #ccc;
+    height: 100px;
+    background-color: #ad1111;
+    float: none;
+}
+#comment {
+    width: 600px;
+    height: 500px;
+    
+
+}

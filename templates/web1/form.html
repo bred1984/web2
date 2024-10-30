@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="server.py" method="post" enctype="multipart/form-data">
+     
+        <label for="name">Введите Ваше имя</label> <br>
+        <input type="text" name="fio" id="name"> <br><br>
+
+        <label for="tel">Введите свой телефон</label> <br>
+        <input type="text" name="tel" id="tel"> <br><br>
+
+        
+
+        <p>Когда Вам удобно позвонить</p>
+        <input type="radio" name="call" id="less3" value="До обеда">
+        <label for="afterdiner">До обеда</label><br>
+        <input type="radio" name="call" id="more3" value="После обеда">
+        <label for="beforediner">После обеда</label>
+        
+        <p>Выберите причину обращения</p>
+        <select name="city" id="city">
+            <option value="Поставить новые окна">Поставить новые окна</option>
+            <option value="Обслужить окна">Обслужить окна</option>
+            <option value="Другой">Другой</option>
+        </select> <br> <br>
+
+        <label for="b">Расскажите подробнее о замере</label> <br>
+        <textarea name="biogr" cols="30" rows="10" id="b"></textarea>
+        <br> <br>
+
+        <input type="submit" value="Отправить"> 
+    </form>
+
+    
+</body>
+</html>

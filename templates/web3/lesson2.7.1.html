@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson2.7</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles_side.css">
+    <link rel="stylesheet" href="styles_heder.css">
+    <link rel="stylesheet" href="styles_main.css">
+    <script src='jquery-3.7.1.min.js'></script>
+</head>
+<body>
+    <div id="header">
+        <img src="logo.jpg" alt="logo" height="60px">
+        <ul class="hr">
+            <li>
+                <a href="#">Войти</a>
+            </li>
+            <li>
+                <a href="#">Регистрация</a>
+            </li>
+        </ul>
+    </div>
+    <div id="menu">
+        <ul>
+            <li>
+                <a href="#">Главная</a>
+            </li>
+            <li>
+                <a href="#">Регистрация</a>
+            </li>
+            <li>
+                <a href="#">О сайте</a>
+            </li>
+        </ul>
+    </div>
+    <div id="main">
+        <input type="file" onchange="readFile(this)">     
+    </div>
+    
+
+<script>
+    const jsonData = require('./123.txt');
+    console.log(jsonData);
+</script>
+    <script>
+// console.log('sdacsdsfv')
+// var file_url = '123.txt'
+// $.ajax({
+//     url: file_url,
+//     dataType: "json",
+//     success: function (json_response) {
+//         // Process the json_response
+//         console.log('sdacsdsfv')
+//         console.log(json_response)
+//     },
+//     error: function () {
+//         // Handle the error.
+//     }
+// });
+
+    </script>
+<script>
+
+// let f = new File('','123.txt')
+// console.log(f.name)
+// </script>
+
+<script>
+//     let link = document.createElement('a');
+// link.download = '123.txt';
+
+// let blob = new Blob(['Hello, world!'], {type: 'text/plain'});
+
+// link.href = URL.createObjectURL(blob);
+
+// link.click();
+
+// URL.revokeObjectURL(link.href);
+</script>
+<script>
+    // const main = document.getElementById("main");
+    // let link = document.createElement('a');
+    // link.download = '123.txt';
+    // main.appendChild(link);
+    // link.textContent ='DVSDF'
+    // // link.
+/*function readFile(input) {
+  let file = input.files[0];
+
+  let reader = new FileReader();
+
+  reader.readAsText(file);
+
+  reader.onload = function() {
+    console.log(reader.result);
+  };
+
+  reader.onerror = function() {
+    console.log(reader.error);
+  };
+
+}*/
+</script>
+    <div id="footer"></div>
+</body>
+</html>

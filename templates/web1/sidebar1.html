@@ -1,9 +1,15 @@
 
 <ul>
-    <li><a href="{% url 'home' %}">Главная</a></li>
+    {%for m in menu.0.menu%}
+        <li><a href="{% url m.url_name  %}">{{m.title}}</a> </li>
+    {%endfor%}
+    <!-- {{menu.menu_a}} -->
+    <!-- <li><a href="{% url 'home' %}">Главная</a></li>
     <li><a href="{% url 'addphoto' %}">Добавить фото</a></li>
     <li><a href="{% url 'showphoto' %}">Галерея</a></li>
     <li><a href="{% url 'chat' %}">Чат</a></li>
     <li><a href="{% url 'test' %}">Test</a></li>
-    <li><a href="#">О сайте</a></li>
+    <li><a href="{% url 'test' %}">Test</a></li>
+    <li><a href="#">О сайте</a></li> -->
+    <!-- {{menu}} -->
 </ul>

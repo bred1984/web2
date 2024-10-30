@@ -16,25 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-# from web.web1 import views
-
-# from web.web1 import views
-# from  web1 import views,web_auth
-
 urlpatterns=[
     path('admin/', admin.site.urls),
-    # path('web1/', include('web1.urls')),
-    path('', include('web1.urls')),
-    # path('', views.index, name='home'),
-    # path('user', views.foo),
-    # path('user/<name>', views.foo),
-    # path('user/<name>/<age>', views.foo),
-    # path('adduser', views.InsertUserDB, name='adduser'),
-    # path('createdb', views.CreateDB, name='createdb'),
-    # path('showuser', views.ShowUser, name='showuser'),
-    # path('showphoto', views.ShowPhoto, name='showphoto'),
-    # path('addphoto', views.AddPhoto, name='addphoto'),
-    # path('login', web_auth.login_user, name='login'),
-    # path('logout', web_auth.logout_user, name='logout'),
-    # path('register', web_auth.register, name='register'),
+    path('web1/', include('web1.urls')),
+    path('web2/', include('web2.urls')),
 ]

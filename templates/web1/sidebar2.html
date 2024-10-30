@@ -1,5 +1,7 @@
 <ul>
-    <li><a href="{% url 'createdb' %}">СТаблицы</a></li>
-    <li><a href="{% url 'showuser' %}">Пользователи</a></li>
-    <li><a href="#">О сайте</a></li>
+    {%for m in menu.1.menu%}
+       <li><a href="{% url m.url_name  %}">{{m.title}}</a> </li>
+    {%endfor%}
+    <!-- <li><a href="{% url 'createdb' %}">СТаблицы</a></li>
+    <li><a href="{% url 'showuser' %}">Пользователи</a></li> -->
 </ul>

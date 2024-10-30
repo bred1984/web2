@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonRes
 import picle
 from web1.SqlDriver import *
 from web1.form import *
+from web1.menu import *
 from django.contrib.sessions.models import Session
 
 import os
@@ -24,32 +25,7 @@ def handle_uploaded_file(f,fulldir):
             destination.write(chunk)
 
 def index(request:HttpRequest):
-    # SqlDriver.sql = f"select * from django_session where session_key = '{request.COOKIES['sessionid']}'"
-    # res = SqlDriver.connect(SqlDriver.ShowUser)
-    # print(res[0]['session_data'])
-    SqlDriver.sql = f"select id from auth_user where username = '{'bred'}'"
-    res = SqlDriver.connect(SqlDriver.ShowUser)
-
-    # print(res[0]['id'])
-    # data = picle.loads(base64.decode(res[0]['session_data']))
-    # print(data)
-    # print(request.session['sessionid'])
-    # s=Session.objects.all()
-    # print(s)
-    for session in Session.objects.all():
-        raw_session = session.get_decoded()
-        uid = session.get_decoded().get('_auth_user_id')
-        # if uid == TARGET_USER:  # this could be a list also if multiple users
-        # print(session)
-        # print(uid)
-        # print(raw_session)
-        # print(raw_session.get('_auth_user_id'))
-    request.session['num_visits']=1
-    request.session['user'] = str(request.user)
-    # print(request.COOKIES['sessionid'])
-
-    # print(dict(request.session))
-    return render(request, "test1.html")
+    return render(request, "web1/test1.html", {'menu':menu})
 
 def foo(request:HttpRequest,name='Будеш хуй',age=20):
     print(request.get_full_path())
@@ -101,7 +77,7 @@ def AddPhoto(request:HttpRequest):
         # return render(request,'addphoto.html',{'form':form})
     else:
         form=AddPhotoForm()
-    return render(request,'addphoto.html',{'form':form})
+    return render(request,'web1/addphoto.html',{'form':form,'menu':menu})
 
 def ShowPhoto(request:HttpRequest):
     SqlDriver.sql = f"select name, href from photo where user_id = (select id from auth_user where username = '{request.user}')"
@@ -112,36 +88,10 @@ def ShowPhoto(request:HttpRequest):
         dd.append(dict(d))
     print(dd)
 
-    return render(request,'showphoto.html' , {'data':dd} )
+    return render(request,'web1/showphoto.html' , {'data':dd,'menu':menu} )
 
 
-# def InsertUserDB(request:HttpRequest):
-#     if request.method=='POST':
-#         form=UserForm(request.POST)#
-#         if form.is_valid():
-#             # form.cleaned_data['name']
-#             # form.cleaned_data['age']
-#             name=form.cleaned_data['name']
-#             if ' ' in   name:
-#                 return HttpResponse(' Дич')
-#             form=UserForm()
-#             print(request.POST)
-#             data={}
-#             data['fio']=request.POST.get('name')
-#             data['age'] = request.POST.get('age')
-#             data['pasport'] = request.POST.get('pasport')
-#             status="Все ок"
-#             # sql = SqlDriver()
-#             # sql.connect(sql.insert_db,data)
-#             SqlDriver.connect(SqlDriver.insert_db,data)
-#
-#             return render(request, 'adduser.html', {'form': form,'status':'Все ок'})
-#         else:
-#             return render(request, 'adduser.html', {'form': form,'status':'Не верно ввел'})
-#
-#     else:
-#         form = UserForm()
-#         return render(request,'adduser.html', {'form':form})
+
 
 def CreateDB(request):
     SqlDriver.connect(SqlDriver.CreateDB)
@@ -155,12 +105,12 @@ def ShowUser(request:HttpRequest):
         print(name)
         SqlDriver.sql = f"select username from auth_user where username = '{name}'"
         res=SqlDriver.connect(SqlDriver.ShowUser)
-        return render(request,'showuser.html', {'user':list(res),'form':form})
+        return render(request,'web1/showuser.html', {'user':list(res),'form':form,'menu':menu})
     else:
         SqlDriver.sql = f"select username from auth_user"
         res = SqlDriver.connect(SqlDriver.ShowUser )
         form = ShowUserForm()
-        return render(request,'showuser.html', {'user':list(res),'form':form})
+        return render(request,'web1/showuser.html', {'user':list(res),'form':form,'menu':menu})
 
 
 def Ajax(request:HttpRequest):
@@ -201,12 +151,12 @@ def Chat(request:HttpRequest):
         print(id,name)
         SqlDriver.sql = f"select username from auth_user where id = '{id}'"
         res=SqlDriver.connect(SqlDriver.ShowUser)
-        return render(request,'chat.html', {'user':list(res),'form':form, 'user':name,'id':id})
+        return render(request,'web1/chat.html', {'user':list(res),'form':form, 'user':name,'id':id, 'menu':menu})
     else:
         SqlDriver.sql = f"select id, username from auth_user where username != '{request.user}'"
         res = SqlDriver.connect(SqlDriver.ShowUser)
         form = ShowUserForm()
-        return render(request,'userforchat.html', {'user':list(res),'form':form})
+        return render(request,'web1/userforchat.html', {'user':list(res),'form':form , 'menu':menu})
     # return render(request, 'userforchat.html')
     # return render(request, 'chat.html')
     # return render(request, 'chat2.html',{'form':form})
@@ -214,7 +164,7 @@ def Chat(request:HttpRequest):
 
 
 def Test(request):
-    return render(request, 'test.html')
+    return render(request, 'web1/test.html', {'menu':menu})
 
 
 
