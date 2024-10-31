@@ -8,21 +8,39 @@
     <link rel="stylesheet" href="styles_side.css">
     <link rel="stylesheet" href="styles_heder.css">
     <link rel="stylesheet" href="styles_main.css">
-    <script src='jquery-3.7.1.min.js'></script>
+    <!-- <script src='jquery-3.7.1.min.js'></script> -->
 </head>
 <body>
     <div id="header">
-        <img src="logo.jpg" alt="logo" height="60px">
-        <ul class="hr">
+        <ul id="reg">
             <li>
                 <a href="#">Войти</a>
             </li>
             <li>
-                <a href="#">Регистрация</a>
+                <a href="#" >Регистрация</a>
             </li>
         </ul>
+        <ul id="tel">
+            <li>+7999111111</li>
+            <li>+7999111112</li>
+        </ul>
+        <div id="tel_div">Наши <br> телефоны</div>
+
+        
+        
+        <select id="city" name="city"  >
+            <option value="Выберите город">Выберите город</option>
+            <option value="Москва">Москва</option>
+            <option value="Санкт-Перербург">Санкт-Перербург</option>
+            <option value="Другой">Другой</option>
+        </select>
+        <div id="title">
+            Продажа мототехники и мотозапчастей
+        </div>
+        <!-- </div> -->
     </div>
     <div id="menu">
+        <img src="logo.jpg" alt="logo" width="170px">
         <ul>
             <li>
                 <a href="#">Главная</a>
@@ -36,73 +54,116 @@
         </ul>
     </div>
     <div id="main">
-        <input type="file" onchange="readFile(this)">     
+        <div id="img-container1">
+            <img src="" id="img1" alt="">
+            <div id="btn1">
+                &gt;
+            </div>
+        </div>
+
+        <div id="img-container2">
+            <img src="" id="img2" alt="">
+            <div id="btn2">
+                &gt;
+            </div>
+        </div>
     </div>
-    
 
-<script>
-    const jsonData = require('./123.txt');
-    console.log(jsonData);
-</script>
-    <script>
-// console.log('sdacsdsfv')
-// var file_url = '123.txt'
-// $.ajax({
-//     url: file_url,
-//     dataType: "json",
-//     success: function (json_response) {
-//         // Process the json_response
-//         console.log('sdacsdsfv')
-//         console.log(json_response)
-//     },
-//     error: function () {
-//         // Handle the error.
-//     }
-// });
-
-    </script>
-<script>
-
-// let f = new File('','123.txt')
-// console.log(f.name)
-// </script>
-
-<script>
-//     let link = document.createElement('a');
-// link.download = '123.txt';
-
-// let blob = new Blob(['Hello, world!'], {type: 'text/plain'});
-
-// link.href = URL.createObjectURL(blob);
-
-// link.click();
-
-// URL.revokeObjectURL(link.href);
-</script>
-<script>
-    // const main = document.getElementById("main");
-    // let link = document.createElement('a');
-    // link.download = '123.txt';
-    // main.appendChild(link);
-    // link.textContent ='DVSDF'
-    // // link.
-/*function readFile(input) {
-  let file = input.files[0];
-
-  let reader = new FileReader();
-
-  reader.readAsText(file);
-
-  reader.onload = function() {
-    console.log(reader.result);
-  };
-
-  reader.onerror = function() {
-    console.log(reader.error);
-  };
-
-}*/
-</script>
     <div id="footer"></div>
+    <script>
+        // const img1 = document.createElement('img');
+        const img1 = document.getElementById("img1");
+        // const img2 = document.createElement('img');
+        const img2 = document.getElementById("img2");
+        img_url=['1.jpg','2.jpg','3.jpg','logo.jpg']
+        document.getElementById('img-container1').append(img1);
+        document.getElementById('img-container2').append(img2);
+        // const img_id = document.createAttribute("id");
+        // img1.setAttribute("id","img_id")
+        // img_id.value = "img1111;";
+        const btn1 = document.getElementById("btn1");
+        console.log(btn1.nextSibling)
+        const city = document.getElementById("city");
+        const title = document.getElementById("title");
+        function mover(e){
+        
+            console.log(e.target.nodeName)
+            console.log(e.target.previousElementSibling)
+            if (e.target.nodeName=='IMG'){
+                e.target.previousElementSibling.style.fontSize= "120px";
+            } else {
+                e.target.style.fontSize= "120px";
+            }
+        }
+        function mout(e){
+            console.log('sdvcasfvdc')
+            e.target.previousElementSibling.style.fontSize= "0px";
+        }
+        function mcity(){
+            console.log("SDVASFV");
+        }
+        let pos=0;
+        let reverse=true;
+        function title_movie(){
+            title.style.marginLeft=String(pos)+'px';
+            
+            if (reverse==true){
+                pos++
+            } else {
+                pos--
+            }
+            // console.log(String(pos)+'px')
+            if ((pos==300)&&(reverse==true)){
+                reverse=false;
+            } else if ((pos==10)&&(reverse==false)){
+                reverse=true;
+            }
+            // console.log(window.innerWidth)
+            if (window.innerWidth<1400){
+                title.style.display='none'
+                
+            } else{
+                title.style.display='block'
+                
+            }
+            if (window.innerWidth<800){
+                document.getElementById("tel").style.display='none';
+                document.getElementById("tel_div").style.display='none';
+            } else{
+                document.getElementById("tel").style.display='block';
+                document.getElementById("tel_div").style.display='block';
+            }
+
+        }
+        setInterval(title_movie,10);
+        // img.mouseover = mover;
+        let ind=0;
+        img1.src=img_url[ind]
+        img2.src=img_url[ind]
+        function btn_click(e){
+            console.log(e.target.nextSibling   )
+            ind++; 
+            console.log('adscasdc');
+            if (ind ==img_url.length){
+                ind =0;
+            }
+            img=e.target.nextElementSibling
+            img.src=img_url[ind];
+        }
+
+
+        img1.addEventListener("mouseover", mover);
+        img2.addEventListener("mouseover", mover);
+        btn1.addEventListener("mouseover", mover);
+        btn1.addEventListener("click", btn_click);
+        btn2.addEventListener("mouseover", mover);
+        btn2.addEventListener("click", btn_click);
+        img1.addEventListener("mouseout", mout);
+        img2.addEventListener("mouseout", mout);
+        city.addEventListener("click", mcity);
+        
+        
+        
+    </script>
 </body>
 </html>
